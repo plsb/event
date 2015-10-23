@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="programacao" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6cc84598-9aed-4453-be18-e66af5bdc153">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select e.descricao evento, e.dataInicio, e.dataFim, ei.data dataItem, ei.hora horaItem, ei.descricao item from Evento e
+inner join EventoItens ei on ei.evento_id=e.id
+where e.id=$P!{sql}
+order by ei.data, ei.hora;]]>
+	</queryString>
+	<field name="evento" class="java.lang.String"/>
+	<field name="dataInicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataFim" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataItem" class="java.sql.Date"/>
+	<field name="horaItem" class="java.sql.Time"/>
+	<field name="item" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="8" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e409a3d6-397b-4852-bfe0-1c57a6b4d785" x="0" y="0" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PROGRAMAÇÃO DE EVENTO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1dd16bb8-6290-46fa-8b4b-a16d7eff80bf" x="0" y="0" width="47" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a5bac39c-7e8a-4a83-a6c1-7ce08de71fa3" x="47" y="0" width="245" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{evento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="7b4afa8b-bf59-4073-a648-472227d7a6a3" x="0" y="49" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="1dd16bb8-6290-46fa-8b4b-a16d7eff80bf" x="0" y="29" width="47" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1dd16bb8-6290-46fa-8b4b-a16d7eff80bf" x="83" y="29" width="47" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1dd16bb8-6290-46fa-8b4b-a16d7eff80bf" x="166" y="29" width="116" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a5bac39c-7e8a-4a83-a6c1-7ce08de71fa3" x="310" y="0" width="245" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Período: "+$F{dataInicio}+" "+$F{dataFim}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="49" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a5bac39c-7e8a-4a83-a6c1-7ce08de71fa3" x="0" y="0" width="83" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataItem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement uuid="a5bac39c-7e8a-4a83-a6c1-7ce08de71fa3" x="83" y="0" width="83" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a5bac39c-7e8a-4a83-a6c1-7ce08de71fa3" x="166" y="0" width="356" height="49"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b9a60993-216d-464e-9325-ae67706130d4" x="463" y="0" width="92" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

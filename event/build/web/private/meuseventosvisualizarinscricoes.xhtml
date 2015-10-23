@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" />
+
+    <h:head>
+        <title>event</title> 
+    </h:head>
+
+    <h:body>
+
+        <pm:page id="first">
+
+
+            <pm:content>
+                <h:form id="main">
+                    <p:growl id="messages" showDetail="true" />
+                    <p:toolbar >
+                        <f:facet name="left">
+                            <p:commandButton  icon="ui-icon-arrow-l" ajax="false" value="Voltar"
+                                              action="/private/meuseventosopcoes.jsf"/>
+                            <p:commandButton icon="ui-icon-home" ajax="false" value="Home"
+                                             action="/private/principal.jsf"/>
+                        </f:facet>
+
+                        <f:facet name="right">                    
+                            <a href="document.location='#{request.contextPath}/j_spring_security_logout" >
+                                Sair
+                            </a>
+                        </f:facet>
+                    </p:toolbar>
+                    <br />
+                    <p:panel header="Inscrições do Evento: #{eventoUsuarioBean.evento.descricao}">
+                        <pm:field>
+                            <p:inputText id="search" placeholder="Pesquise nome do Usuário" type="search"
+                                         value="#{eventoUsuarioBean.pesquisaEvento}"/>
+                        </pm:field>
+                        <p:commandButton value="Pesquisar" ajax="false" icon="ui-icon-search"/>
+
+                        <p:dataTable id="events" var="event" value="#{eventoUsuarioBean.listaInscricoes}"
+                                     paginator="true" rows="10">
+                            <f:facet name="header">
+                                Lista de Eventos
+                            </f:facet>
+
+                            <p:column headerText="Data Inscrição" >
+                                <h:outputText value="#{event.data}" />
+                            </p:column>
+
+                            <p:column headerText="Inscrição" >
+                                <h:outputText value="#{event.id}" />
+                            </p:column>
+
+                            <p:column headerText="Nome" >
+                                <h:outputText value="#{event.usuario.name}" />
+                            </p:column>
+
+                            <p:column headerText="CPF">
+                                <h:outputText value="#{event.usuario.cpf}" />
+                            </p:column>
+
+                            <p:column headerText="Evento">
+                                <h:outputText value="#{event.evento.descricao}" />
+                            </p:column>
+
+                            <p:column headerText="Valor">
+                                <h:outputText value="#{event.valorInscricao}" />
+                            </p:column>
+                            
+                            <p:column headerText="Situação">
+                                <h:outputText value="#{event.situacao}" />
+                            </p:column>
+
+                            <p:column headerText=" - ">
+                                <p:commandButton action="#{eventoUsuarioBean.mudaSituacao}" value="Ativar" icon="ui-icon-check" ajax="false">
+                                    <f:setPropertyActionListener target="#{eventoUsuarioBean.eventoInscricao}"
+                                                                 value="#{event}" />
+                                </p:commandButton>
+
+
+                            </p:column>
+                            <p:column headerText=" - ">
+                                <p:commandButton action="/private/meuseventosvisualizarinscricoesitens.jsf" value="Visualizar" icon="ui-icon-search" ajax="false">
+                                    <f:setPropertyActionListener target="#{eventoUsuarioBean.eventoInscricao}"
+                                                                 value="#{event}" />
+                                </p:commandButton>
+
+
+                            </p:column>
+
+
+                        </p:dataTable>
+
+
+
+                    </p:panel>
+                </h:form>
+
+            </pm:content>
+
+        </pm:page>
+
+    </h:body>
+
+</html>

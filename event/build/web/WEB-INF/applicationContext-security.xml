@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<bean:beans xmlns:bean="http://www.springframework.org/schema/beans" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xmlns:b="http://www.springframework.org/schema/beans"
+            xmlns="http://www.springframework.org/schema/security" 
+            xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+            http://www.springframework.org/schema/security 
+            http://www.springframework.org/schema/security/spring-security-3.0.xsd"> 
+    <http auto-config="true"> 
+        <intercept-url pattern="/private/**" access="ROLE_USER"/> 
+        <form-login login-page="/public/login.jsf"
+                    always-use-default-target="true" default-target-url="/private/principal.jsf"
+                    authentication-failure-url="/public/login.jsf?login_error=1" />
+        <logout/>
+        <remember-me />
+    </http> 
+    <authentication-manager> 
+        <authentication-provider> 
+            <jdbc-user-service data-source-ref="dataSource" 
+                               authorities-by-username-query="select login,permission from Usuario u
+                        inner join user_permission up on up.user=u.id where login=?"
+                               users-by-username-query="SELECT login, password, active FROM Usuario WHERE login = ?"           
+            />
+        </authentication-provider> 
+    </authentication-manager> 
+    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <b:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <b:property name="url" value="jdbc:mysql://srv07.brasilwork.com.br:3306/loyqfhoo_banco_event" />
+        <b:property name="username" value="loyqfhoo_event" />
+        <b:property name="password" value="12345event" />
+
+    </b:bean>
+</bean:beans>
+

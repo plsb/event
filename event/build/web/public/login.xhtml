@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" />
+
+    <h:head>
+        <title>event</title> 
+
+    </h:head>
+
+    <h:body>
+        
+        
+        <pm:page id="first">
+
+
+            <pm:content>
+                <h:panelGroup rendered="#{!empty param.login_error}">
+                    <span style="font-color:red"> Erro ao efetuar o login.</span><br />
+                    <br/>
+                    Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+                </h:panelGroup> 
+
+
+                <form id="login" method="post" action="${request.contextPath}/j_spring_security_check">
+                    <p:growl id="messages" showDetail="true" />
+
+                    <p:panel id="pnl1" header="Login">
+
+                        <!--                    <pm:header title="Login" swatch="b">
+                                                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="Voltar" icon="ui-icon-arrow-l" 
+                                                                 action="/public/menu.jsf" ajax="false"/>
+                                            </pm:header>
+                        -->
+                        <pm:field>
+                            <input type="text" class="login-field" name='j_username' value="" placeholder="usuário" id="login-name"/>    
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </pm:field>
+
+                        <pm:field>
+                            <input type="password" name='j_password' class="login-field" value="" placeholder="senha" id="login-pass"/>
+                            <label class="login-field-icon fui-lock" for="login-pass"></label>
+
+                        </pm:field>
+
+                        <input value="Entrar" type="submit"  />
+                    </p:panel>
+
+                </form>
+
+            </pm:content>
+
+        </pm:page>
+
+    </h:body>
+
+</html>

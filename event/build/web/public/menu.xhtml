@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" />
+
+    <h:head>
+        <title>event</title> 
+    </h:head>
+
+    <h:body>
+
+        <pm:page id="first">
+
+
+
+            <pm:content>
+                <h:form id="main">
+                    <p:growl id="messages" showDetail="true" />
+                    <p:panel id="pnl1" header="Opções">
+                        <p:menu>
+                            <p:menuitem value="Login" url="/public/login.jsf" />
+                            <p:menuitem value="Código de Validação" url="/public/validacao.jsf" />
+                            <p:menuitem value="Cadastre-se" url="/public/cadastrese.jsf" />
+                        </p:menu>
+                    </p:panel>
+
+                </h:form>
+
+            </pm:content>
+
+        </pm:page>
+
+    </h:body>
+
+</html>

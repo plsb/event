@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" />
+
+    <h:head>
+        <title>event</title> 
+    </h:head>
+
+    <h:body>
+
+        <pm:page id="first">
+
+
+            <pm:content>
+                <h:form id="main">
+                    <p:growl id="messages" showDetail="true" />
+                    <p:toolbar >
+                        <f:facet name="left">
+                            <p:commandButton  icon="ui-icon-arrow-l" ajax="false" value="Voltar"
+                                              action="/private/meuseventos.jsf"/>
+                            <p:commandButton icon="ui-icon-home" ajax="false" value="Home"
+                                             action="/private/principal.jsf"/>
+                        </f:facet>
+
+                        <f:facet name="right">                    
+                            <a href="document.location='#{request.contextPath}/j_spring_security_logout" >
+                                Sair
+                            </a>
+                        </f:facet>
+                    </p:toolbar>
+                    <br />
+
+                    <p:panel header="#{eventoBean.usuarioAtivo}, aqui estão as informações do Evento" toggleable="true">
+                        <pm:field>
+                            <p:outputLabel value="Evento: " />
+                            <p:outputLabel id="basic" value="#{eventoBean.evento.descricao}" />
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="Organizador: " />
+                            <p:outputLabel id="basic2" value="#{eventoBean.evento.dono.name}"/>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="Data Inicio: " />
+                            <p:outputLabel id="basic3" value="#{eventoBean.evento.dataInicio}"/>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="Local: " />
+                            <p:outputLabel id="basic5" value="#{eventoBean.evento.local.descricao}
+                                           (#{eventoBean.evento.local.endereco}, #{eventoBean.evento.local.cep},
+                                           #{eventoBean.evento.local.cidade.descricao}-#{eventoBean.evento.local.cidade.estado})" />
+                        </pm:field>
+
+                        <p:commandButton value="Programação" ajax="false" icon="ui-icon-bullets" >
+                            <p:fileDownload value="#{eventoBean.arqRelProgramacao}" />
+                        </p:commandButton>
+
+
+                        <p:commandButton action="#{eventoBean.realizarInscricao}"
+                                         value="Realizar Inscrição" ajax="false" icon="ui-icon-check"/>
+
+                    </p:panel>  
+                    <br />
+                    <p:panel header="Sua Inscrição" toggleable="true">
+
+                        <p:dataTable id="events" var="event" value="#{eventoBean.listaEI}"
+                                     paginator="true" rows="10">
+                            <f:facet name="header">
+                                Inscrição
+                            </f:facet>
+
+                            <p:column headerText="Número" >
+                                <h:outputText value="#{event.id}" />
+                            </p:column>
+
+                            <p:column headerText="Data" >
+                                <h:outputText value="#{event.data}" />
+                            </p:column>
+
+                            <p:column headerText="Hora" >
+                                <h:outputText value="#{event.hora}" />
+                            </p:column>
+
+                            <p:column headerText="Situação" >
+                                <h:outputText value="#{event.situacao}" />
+                            </p:column>
+
+                            <p:column headerText="Valor" >
+                                <h:outputText value="#{event.valorInscricao}" />
+                            </p:column>
+
+                            <p:column headerText=" - ">
+                                <p:commandButton action="/private/itensevento.jsf"
+                                                 value="Detalhes" ajax="false" icon="ui-icon-info">
+                                    <f:setPropertyActionListener target="#{eventoItensBean.eii}"
+                                                                 value="#{event}" />
+                                </p:commandButton>
+
+
+                            </p:column>
+
+                            <p:column headerText=" - ">
+
+                                <p:commandButton value="Imprimir" ajax="false" icon="ui-icon-tag">
+                                    <f:setPropertyActionListener target="#{eventoBean.eventoInscricao}"
+                                                                 value="#{event}" />
+                                    <p:fileDownload value="#{eventoBean.arqRelCompInscr}" />
+                                </p:commandButton>
+
+                            </p:column>
+
+
+
+                            <p:column headerText=" - ">
+
+                                <p:commandButton action="#{eventoBean.remover}"
+                                                 onclick="if (!confirm('Confirma a exclusão da Inscrição ?'))
+                                                             return false;"
+                                                 value="Excluir" ajax="false" icon="ui-icon-delete">
+                                    <f:setPropertyActionListener target="#{eventoBean.eventoInscricao}"
+                                                                 value="#{event}" />
+                                </p:commandButton>
+
+                            </p:column>
+
+                        </p:dataTable>
+
+
+
+
+                    </p:panel>  
+
+                </h:form>
+
+            </pm:content>
+
+        </pm:page>
+
+    </h:body>
+
+</html>

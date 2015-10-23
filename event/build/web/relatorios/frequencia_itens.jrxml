@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="frequencia_itens" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a0ec30f-0ead-4e7f-9cb4-6b35c6826160">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select ec.data, ec.hora, eii.eventoInscricao_id,ei.descricao,e.descricao, e.dataInicio, e.dataFim,u.name, u.cpf, u.email, e.descricao nomeevento from EventoCheckin ec
+inner join EventoInscricaoItens eii on eii.id=ec.eventoItem_id
+inner join EventoInscricao eins on eins.id=eii.eventoInscricao_id
+inner join EventoItens ei on ei.id=eii.eventoItens_id
+inner join Usuario u on u.id=eins.usuario_id
+inner join Evento e on e.id=ei.evento_id
+where ei.id=$P!{sql}
+order by u.name]]>
+	</queryString>
+	<field name="data" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="eventoInscricao_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataInicio" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataFim" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeevento" class="java.lang.String"/>
+	<variable name="soma" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{data}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="68" splitType="Stretch">
+			<line>
+				<reportElement uuid="1ad1f730-796c-43c1-bb38-4041bed752a1" x="0" y="67" width="555" height="1"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="3" y="20" width="323" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Evento: "+$F{nomeevento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="326" y="20" width="229" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Inicio: "+$F{dataInicio}+" à "+$F{dataFim}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="0" y="40" width="383" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Item: "+$F{descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="3" y="0" width="552" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE CHECKIN DE ITEM]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="70" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="0" y="21" width="73" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm.ss">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="73" y="21" width="61" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="134" y="21" width="119" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eventoInscricao_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="253" y="21" width="302" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="253" y="41" width="302" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="73" y="41" width="120" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="33" y="41" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="206" y="41" width="47" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="1ad1f730-796c-43c1-bb38-4041bed752a1" x="0" y="61" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="0" y="1" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="73" y="1" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="134" y="1" width="98" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inscrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="253" y="1" width="98" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Participante]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b9a60993-216d-464e-9325-ae67706130d4" x="463" y="0" width="92" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="99f24156-dbcf-4662-8b63-9213ee0723ab" x="3" y="0" width="323" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Quantidade de Checkins: "+$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

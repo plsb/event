@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" />
+
+    <h:head>
+        <title>event</title> 
+    </h:head>
+
+    <h:body>
+
+        <pm:page id="first">
+
+
+            <pm:content>
+                <h:form id="main">
+                    <p:growl id="messages" showDetail="true" />
+                    <p:toolbar >
+                        <f:facet name="left">
+                            <p:commandButton  icon="ui-icon-arrow-l" ajax="false" value="Voltar"
+                                              action="/private/meuseventosvisualizarinscricoes.jsf"/>
+                            <p:commandButton icon="ui-icon-home" ajax="false" value="Home"
+                                             action="/private/principal.jsf"/>
+                        </f:facet>
+
+                        <f:facet name="right">                    
+                            <a href="document.location='#{request.contextPath}/j_spring_security_logout" >
+                                Sair
+                            </a>
+                        </f:facet>
+                    </p:toolbar>
+                    <br />
+                    
+                    <p:panel id="pnl1" header="Inscrição: #{eventoUsuarioBean.eventoInscricao.id}, #{eventoUsuarioBean.eventoInscricao.usuario.name}" toggleable="true">
+                        <pm:field>
+                            <p:outputLabel value="Evento: " />
+                            <p:outputLabel id="basic" value="#{eventoUsuarioBean.eventoInscricao.evento.descricao}" />
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="Inscrição: " />
+                            <p:outputLabel id="inscr" value="#{eventoUsuarioBean.eventoInscricao.id}" />
+                        </pm:field>
+                         <pm:field>
+                            <p:outputLabel value="Email: " />
+                            <p:outputLabel id="basic20" value="#{eventoUsuarioBean.eventoInscricao.usuario.email}" />
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="CPF: " />
+                            <p:outputLabel id="basic30" value="#{eventoUsuarioBean.eventoInscricao.usuario.cpf}" />
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="Situação: " />
+                            <p:outputLabel id="basic2" value="#{eventoUsuarioBean.eventoInscricao.situacao}"/>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="Data da Inscrição: " />
+                            <p:outputLabel id="basic3" value="#{eventoUsuarioBean.eventoInscricao.data}"/>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel value="Data Fim: " />
+                            <p:outputLabel id="basic4" value="#{eventoUsuarioBean.eventoInscricao.data}" />
+                        </pm:field>
+
+                        <p:commandButton action="#{eventoUsuarioBean.mudaSituacao}"
+                                         value="Ativar Inscrição" ajax="false" icon="ui-icon-check"/>
+
+                    </p:panel>  
+                    <br />
+                    <p:panel header="Itens" toggleable="true">
+
+                        <p:dataTable id="events" var="event" value="#{eventoUsuarioBean.listaInscricoesItens}"
+                                     paginator="true" rows="10">
+                            <f:facet name="header">
+                                Itens
+                            </f:facet>
+
+                            <p:column headerText="Descrição" >
+                                <h:outputText value="#{event.eventoItens.descricao}" />
+                            </p:column>
+                            
+                            <p:column headerText="Valor" >
+                                <h:outputText value="R$ #{event.eventoItens.valor}" />
+                            </p:column>
+
+                            <p:column headerText="Data do Item" >
+                                <h:outputText value="#{event.eventoItens.data}" />
+                            </p:column>
+
+                            <p:column headerText="Hora" >
+                                <h:outputText value="#{event.eventoItens.hora}" />
+                            </p:column>
+
+                            <p:column headerText="Situação" >
+                                <h:outputText value="#{event.situacao}" />
+                            </p:column>
+
+                            <p:column headerText=" - ">
+                                <h:commandButton action="#{eventoUsuarioBean.situacaoItem}"
+                                                 value="Ativar/Inativar">
+                                    <f:setPropertyActionListener target="#{eventoUsuarioBean.eventoInscricaoItens}"
+                                                                 value="#{event}" />
+                                </h:commandButton>
+
+
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>  
+
+                </h:form>
+
+            </pm:content>
+
+        </pm:page>
+
+    </h:body>
+
+</html>

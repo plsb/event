@@ -1,0 +1,102 @@
+body, td, th {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+		 
+}
+
+th {
+	
+	min-height: 25px;
+	padding: 3px;
+
+}
+
+img {
+	border:0px;
+}
+
+#container {
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto
+}
+
+#title {
+	float: right;
+	font-size: 30pt;
+	font-variant: small-caps;
+	font-weight: bold;
+}
+
+#menu {
+	min-height: 25px;
+	padding: 3px;
+	clear:both;
+}
+
+#body {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	min-height: 300px;
+}
+
+#footer {
+        position: relative;
+      
+	margin: 10px, 0px, 0px, 0px;
+	padding: 5px;
+	text-align: center;
+}
+
+#containerlogin {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	text-align: center;
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto
+}
+
+#backgroudlogin{	
+	float: center;
+	font-size: 12pt;
+	font-variant: small-caps;
+	font-weight: bold;
+	
+	
+	filter: dropshadow(color=#f00505, offx=10, offy=1);
+	background-color: rgba(204, 204, 204, 0.8);	
+	text-align: center;
+	padding: 20px;
+	
+	
+}
+
+#espacoacimalogin {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	min-height: 100px;
+}
+
+#espacoacimaloginELogoOneTeam {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	min-height: 20px;
+}
+
+
+.info {
+	font-weight: bold;
+	color: green;
+}
+
+.warn {
+	font-weight: bold;
+	color: #FFCC00;
+}
+
+.fatal, .error {
+	font-weight: bold;
+	color: red;
+}

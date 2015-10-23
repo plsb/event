@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inscritos_item_evento" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1f29fa7e-998a-49a9-b9d7-52c70699f3a8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select ei.data dataInscricao, ei.id numInscricao, e.descricao nomeEvento, e.dataInicio dtInicioEvento, e.dataFim dtFimEvento
+, ei.ativo situacao, eii.validada situacaoItem, eItens.descricao descricaoItem, u.name nomeUsuario,
+u.cpf cpfUsuario, u.email  from EventoInscricao ei
+inner join Evento e on e.id=ei.evento_id
+inner join EventoInscricaoItens eii on eii.eventoInscricao_id=ei.id
+inner join EventoItens eItens on eItens.id=eii.eventoItens_id
+inner join Usuario u on u.id=ei.usuario_id
+where eItens.id=$P!{sql}]]>
+	</queryString>
+	<field name="dataInscricao" class="java.sql.Date"/>
+	<field name="numInscricao" class="java.lang.String"/>
+	<field name="nomeEvento" class="java.lang.String"/>
+	<field name="dtInicioEvento" class="java.sql.Date"/>
+	<field name="dtFimEvento" class="java.sql.Date"/>
+	<field name="situacao" class="java.lang.Boolean"/>
+	<field name="situacaoItem" class="java.lang.Boolean"/>
+	<field name="descricaoItem" class="java.lang.String"/>
+	<field name="nomeUsuario" class="java.lang.String"/>
+	<field name="cpfUsuario" class="java.lang.String"/>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="6" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="2" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="69" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="0" y="40" width="383" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Item: "+$F{descricaoItem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="3" y="20" width="323" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Evento: "+$F{nomeEvento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="326" y="20" width="229" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Inicio: "+$F{dtInicioEvento}+" à "+$F{dtFimEvento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="3" y="0" width="552" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE INSCRITOS NO ITEM]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="1ad1f730-796c-43c1-bb38-4041bed752a1" x="5" y="66" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="74" splitType="Stretch">
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="80" y="22" width="119" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numInscricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="199" y="2" width="98" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Participante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="152" y="43" width="47" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="199" y="22" width="356" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeUsuario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="3" y="23" width="73" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataInscricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="41" y="43" width="107" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpfUsuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="80" y="2" width="98" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inscrição]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="199" y="43" width="196" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="1" y="43" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="3" y="3" width="40" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="1ad1f730-796c-43c1-bb38-4041bed752a1" x="10" y="70" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="424f0e4f-6d3f-4d4f-8e4e-9e032f93aee1" x="401" y="42" width="62" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="47a56d1f-f760-44c4-8902-66c6f9fea9ca" x="463" y="42" width="92" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{situacaoItem}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b9a60993-216d-464e-9325-ae67706130d4" x="463" y="0" width="92" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="99f24156-dbcf-4662-8b63-9213ee0723ab" x="3" y="0" width="323" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Quantidade de Inscritos: "+$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
