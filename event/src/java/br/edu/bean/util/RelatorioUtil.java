@@ -117,6 +117,7 @@ public class RelatorioUtil {
 			InputStream conteudoRelatorio = new FileInputStream(arquivoGerado);
 			arquivoRetorno = new DefaultStreamedContent(conteudoRelatorio, "application/" + extensaoArquivoExportado, nomeRelatorioSaida + "." + extensaoArquivoExportado);
 		} catch (JRException e) {
+                    System.out.println("ERRO: "+e.getMessage());
 			throw new UtilException("Não foi possível gerar o relatório.", e);
 		} catch (FileNotFoundException e) {
 			throw new UtilException("Arquivo do relatório não encontrado.", e);

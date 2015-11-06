@@ -34,7 +34,7 @@
                         </f:facet>
                     </p:toolbar>
                     <br />
-
+               
                     <p:panel id="pnl1" header="Evento: #{eventoUsuarioBean.eventoInscricao.evento.descricao}, Item: #{eventoUsuarioBean.evntoItem.descricao}">
                         <h:outputText value="Checkin" />
                         <br/>
@@ -42,8 +42,8 @@
                         <pm:field>
                             <p:inputText id="search" placeholder="Num. Inscrição para checkin" type="search"
                                          value="#{eventoUsuarioBean.pesquisaChekin}" >
-
-                            </p:inputText>
+                            </p:inputText> 
+                           <!-- (<a href="http://zxing.appspot.com/scan?ret=http://http://localhost:8080/event/private/checkin.jsf?search={CODE}">Leitor</a>)-->
                         </pm:field>
                         <p:commandButton value="Checkin"
                                          action="#{eventoUsuarioBean.pesquisarInscricaoChekinUsuario}" ajax="false"

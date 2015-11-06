@@ -65,7 +65,7 @@ public class EventoBean {
             SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
             String strHora = hora.format(new Date(System.currentTimeMillis()));
             String strData = data.format(new Date(System.currentTimeMillis()));
-            String codigo = strHora.replaceAll(":", "")
+            String codigo = usuario.getId().toString() + strHora.replaceAll(":", "")
                     + strData.replace("/", "");
             ei.setId(codigo);
             ei.setEvento(evento);
@@ -155,11 +155,12 @@ public class EventoBean {
 
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Comprovante de Inscrição Gerado!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            return arqRelCompInscr;
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Inscrição Inativa! Espere a Ativação da mesma!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Inscrição Inativa!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        return arqRelCompInscr;
+        return null;
     }
 
     private StreamedContent arqRelProgramacao;

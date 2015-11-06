@@ -59,9 +59,11 @@
                             <p:fileDownload value="#{eventoBean.arqRelProgramacao}" />
                         </p:commandButton>
 
-
-                        <p:commandButton action="#{eventoBean.realizarInscricao}"
-                                         value="Realizar Inscrição" ajax="false" icon="ui-icon-check"/>
+                        <p:commandButton action="#{eventoItensBean.realizarInscricao}"
+                                         value="Inscrição" ajax="false" icon="ui-icon-check">
+                            <f:setPropertyActionListener target="#{eventoItensBean.evento}"
+                                                         value="#{eventoBean.evento}" />
+                        </p:commandButton>
 
                     </p:panel>  
                     <br />
@@ -105,7 +107,7 @@
 
                             <p:column headerText=" - ">
 
-                                <p:commandButton value="Imprimir" ajax="false" icon="ui-icon-tag">
+                                <p:commandButton value="Comprovante" ajax="false" icon="ui-icon-tag">
                                     <f:setPropertyActionListener target="#{eventoBean.eventoInscricao}"
                                                                  value="#{event}" />
                                     <p:fileDownload value="#{eventoBean.arqRelCompInscr}" />

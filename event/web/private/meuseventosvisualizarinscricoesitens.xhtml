@@ -107,6 +107,18 @@
 
 
                             </p:column>
+                            
+                            <p:column headerText=" - ">
+                                <p:commandButton action="#{eventoUsuarioBean.situacaoItem}"
+                                                 onclick="if (!confirm('Confirma a exclusão do item ?'))
+                                                             return false;"
+                                                 value="Excluir" icon="ui-icon-delete" ajax="false">
+                                    <f:setPropertyActionListener target="#{eventoUsuarioBean.eventoInscricaoItens}"
+                                                                 value="#{event}" />
+                                </p:commandButton>
+
+
+                            </p:column>
 
                         </p:dataTable>
 

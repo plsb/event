@@ -147,7 +147,7 @@ public abstract class GenericDAO<T> {
 
     }
     
-    public List<T> checkExists(String campo, List<Object> valores) {
+    public List<T> checkExistsIn(String campo, List<Object> valores) {
         List<T> lista = null;
         try {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());

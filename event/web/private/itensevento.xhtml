@@ -48,6 +48,8 @@
                         <p:commandButton action="#{eventoItensBean.inscreverItens}"
                                          value="Inscrever Item" ajax="false" icon="ui-icon-check"/>
 
+                        <p:outputLabel value="Valor R$ #{eventoItensBean.valorTotal}" />
+
                         <p:dataTable id="itens" var="itens" value="#{eventoItensBean.lEventoInscricaoItens}"
                                      paginator="true" rows="10">
                             <f:facet name="header">
@@ -57,7 +59,7 @@
                             <p:column headerText="Descrição" >
                                 <h:outputText value="#{itens.eventoItens.descricao}" />
                             </p:column>
-                            
+
                             <p:column headerText="Valor" >
                                 <h:outputText value="R$ #{itens.eventoItens.valor}" />
                             </p:column>
@@ -73,7 +75,7 @@
                             <p:column headerText="Evento" sortBy="#">
                                 <h:outputText value="#{itens.eventoInscricao.evento.descricao}" />
                             </p:column>
-                            
+
                             <p:column headerText="Organizador" sortBy="#">
                                 <h:outputText value="#{itens.eventoInscricao.evento.dono.name}" />
                             </p:column>
@@ -85,17 +87,21 @@
 
                             <p:column headerText=" - ">
 
-                                <h:commandButton action="#{eventoItensBean.remover}"
+                                <p:commandButton action="#{eventoItensBean.remover}"
                                                  onclick="if (!confirm('Confirma a exclusão do item ?'))
                                                              return false;"
-                                                 value="Excluir">
+                                                 value="Excluir" icon="ui-icon-delete" ajax="false">
                                     <f:setPropertyActionListener target="#{eventoItensBean.eventoInscricaoItens}"
                                                                  value="#{itens}" />
-                                </h:commandButton>
+                                </p:commandButton>
 
                             </p:column>
 
                         </p:dataTable>
+
+                        <p:commandButton value="Imprimir Pagamento" ajax="false" >
+                            <p:fileDownload value="#{eventoItensBean.arqRelComp}" />
+                        </p:commandButton>
                     </p:panel>
                 </h:form>
 

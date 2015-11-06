@@ -12,7 +12,8 @@ inner join Evento e on e.id=ei.evento_id
 inner join EventoInscricaoItens eii on eii.eventoInscricao_id=ei.id
 inner join EventoItens eItens on eItens.id=eii.eventoItens_id
 inner join Usuario u on u.id=ei.usuario_id
-where eItens.id=$P!{sql}]]>
+where eItens.id=$P!{sql}
+order by u.name]]>
 	</queryString>
 	<field name="dataInscricao" class="java.sql.Date"/>
 	<field name="numInscricao" class="java.lang.String"/>

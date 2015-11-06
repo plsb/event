@@ -40,6 +40,8 @@
                                          value="#{eventoUsuarioBean.pesquisaEvento}"/>
                         </pm:field>
                         <p:commandButton value="Pesquisar" ajax="false" icon="ui-icon-search"/>
+                        <p:commandButton value="Imprimir Etiquetas" ajax="false" icon="ui-icon-bullets" 
+                                         action="/private/imprimiretiquetas.jsf"/>
 
                         <p:dataTable id="events" var="event" value="#{eventoUsuarioBean.listaInscricoes}"
                                      paginator="true" rows="10">
@@ -70,7 +72,7 @@
                             <p:column headerText="Valor">
                                 <h:outputText value="#{event.valorInscricao}" />
                             </p:column>
-                            
+
                             <p:column headerText="Situação">
                                 <h:outputText value="#{event.situacao}" />
                             </p:column>

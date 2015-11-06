@@ -1,0 +1,45 @@
+<com.androidhive.dashboard.DashboardLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
+        <!--  News Feed Button -->
+        <Button
+            android:id="@+id/MenuBtn_checkin"
+            style="@style/DashboardButton"
+            android:drawableTop="@drawable/checkin"
+            android:background="@null"
+            android:drawablePadding="10dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Checkin" />
+
+        <!--  Friends Button -->
+        <Button
+            android:id="@+id/MenuBtn_sincronizar"
+            style="@style/DashboardButton"
+            android:drawableTop="@drawable/sincronizarsce"
+            android:background="@null"
+            android:drawablePadding="10dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sincronizar" />
+
+        <!--  Friends Button -->
+        <Button
+            android:id="@+id/MenuBtn_close"
+            style="@style/DashboardButton"
+            android:drawableTop="@drawable/closesce"
+            android:background="@null"
+            android:drawablePadding="10dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sair" />
+
+
+
+</com.androidhive.dashboard.DashboardLayout>
+

@@ -27,8 +27,14 @@ public class EventoItens {
     @Temporal(TemporalType.DATE)
     private Date data;
     
+    @Temporal(TemporalType.DATE)
+    private Date dataFinal;
+    
     @Temporal(TemporalType.TIME)
     private Date hora;
+    
+    @Temporal(TemporalType.TIME)
+    private Date horaFinal;
     
     @ManyToOne
     private Evento evento;
@@ -36,6 +42,8 @@ public class EventoItens {
     private int quantidadePermitida;
     
     private double valor;
+    
+    private String local;
 
     public Integer getId() {
         return id;
@@ -120,7 +128,29 @@ public class EventoItens {
         }
         return true;
     }
-    
-    
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
+    public Date getHoraFinal() {
+        return horaFinal;
+    }
+
+    public void setHoraFinal(Date horaFinal) {
+        this.horaFinal = horaFinal;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
     
 }

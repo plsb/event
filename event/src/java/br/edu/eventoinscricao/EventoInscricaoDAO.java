@@ -81,5 +81,6 @@ public class EventoInscricaoDAO extends GenericDAO<EventoInscricao> {
         return list;
 
     }
-
+    
+    
 }

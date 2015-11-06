@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="compr_inscricao_info" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aefab3f9-469a-437a-beb5-774e9e440e0b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select e.descricao descricaoEvento, ei.id, evI.descricao descricaoItemEvento, evI.valor, u.name, u.cpf from EventoInscricao ei
+inner join Evento e on e.id=ei.evento_id
+inner join EventoInscricaoItens eii on eii.eventoInscricao_id=ei.id
+inner join EventoItens evI on evI.id=eii.eventoItens_id
+inner join Usuario u on u.id=ei.usuario_id
+where eii.validada=false and ei.id=$P!{sql}
+order by  evI.data, evI.hora]]>
+	</queryString>
+	<field name="descricaoEvento" class="java.lang.String"/>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricaoItemEvento" class="java.lang.String"/>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="somavalor" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<group name="teste">
+		<groupHeader>
+			<band height="37">
+				<staticText>
+					<reportElement uuid="5685ca43-5226-4566-84c8-289bf539a349" x="5" y="13" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[DESCRIÇÃO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5685ca43-5226-4566-84c8-289bf539a349" x="470" y="13" width="60" height="20"/>
+					<textElement/>
+					<text><![CDATA[VALOR]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="7cbe83ab-e583-40ee-a6b4-709a80d57ec7" x="5" y="31" width="550" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="7cbe83ab-e583-40ee-a6b4-709a80d57ec7" x="5" y="12" width="550" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="28">
+				<line>
+					<reportElement uuid="7cbe83ab-e583-40ee-a6b4-709a80d57ec7" x="3" y="3" width="550" height="1"/>
+				</line>
+				<textField>
+					<reportElement uuid="008a4ebc-361e-43cb-a683-a9d03c858976" x="429" y="4" width="106" height="17"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total: "+$V{somavalor}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="008a4ebc-361e-43cb-a683-a9d03c858976" x="0" y="0" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricaoEvento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="008a4ebc-361e-43cb-a683-a9d03c858976" x="0" y="0" width="555" height="20"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="14" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PRABÉNS "+$F{name}+"."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8df1a428-5255-4fa4-9a13-f09047354191" x="0" y="0" width="555" height="49"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Detectamos a sua  solicitação de inscrição no evento selecionado. Faltando pouco para ativar a sua inscrição.
+Veja abaixo informações importantes sobre sua participação neste evento.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement uuid="008a4ebc-361e-43cb-a683-a9d03c858976" x="448" y="1" width="87" height="32"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="008a4ebc-361e-43cb-a683-a9d03c858976" x="2" y="2" width="445" height="32"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricaoItemEvento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="176" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5685ca43-5226-4566-84c8-289bf539a349" x="5" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[PAGAMENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5685ca43-5226-4566-84c8-289bf539a349" x="72" y="20" width="481" height="64"/>
+				<textElement/>
+				<text><![CDATA[- Faculdade Vale do Salgado, setor: NEXAS, das 08:00 às 11:00/ 16:00 às 22:00;
+- Depósito: Banco do Brasil, Agência 1598-9, C/C 25319-7, TCC EDUCAÇÃO CIÊNCIA E CULTURA;
+- Caso seja efetuado depósito, enviar comprovante para o e-mail: nexas@fvs.edu.br ou entregar no setor do NEXAS , das 08:00 às 11:00/ 16:00 às 22:00.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5685ca43-5226-4566-84c8-289bf539a349" x="5" y="84" width="550" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[OUTRAS INFORMAÇÕES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5685ca43-5226-4566-84c8-289bf539a349" x="4" y="104" width="549" height="69"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Confirmado o pagamento estará disponível o comprovante de inscrição que deve ser impresso e apresentado no dia do evento.
+O credenciamento será feito a partir dos dias 16, 17 e 18 de novembro das 17h00min às 19h00min.
+
+Informações gerais: http://www.nexasfvs.com.br
+
+Fone: (88) 3561-2760]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -23,9 +23,13 @@
                         <f:facet name="left">
                             <p:commandButton  icon="ui-icon-user" ajax="false" value="Meus Eventos"
                                               action="/private/meuseventos.jsf"/>
+                            <p:commandButton  icon="ui-icon-gear" ajax="false" value="Configurações"
+                                              action="/private/mudarsenha.jsf"/>
+                            
                         </f:facet>
 
                         <f:facet name="right">                    
+                            
                             <a href="document.location='#{request.contextPath}/j_spring_security_logout" >
                                 Sair
                             </a>

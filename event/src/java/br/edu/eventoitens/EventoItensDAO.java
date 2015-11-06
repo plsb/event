@@ -25,6 +25,27 @@ public class EventoItensDAO extends GenericDAO<EventoItens> {
     public EventoItensDAO() {
         super(EventoItens.class);
     }
+    
+    public List<EventoItens> verificaDataEHora(Date data, Date hora) {
+        List<EventoItens> list=null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            this.setTransacao(getSessao().beginTransaction());
+            list = this.getSessao().createCriteria(EventoItens.class).
+                    add(Restrictions.eq("data", data)).
+                    add(Restrictions.eq("hora", hora)).
+                    list();
+           
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage()+" | "+e.getCause());
+            
+        } finally {
+            
+            getSessao().close();
+        }
+        return list;
+    
+    }
 
     
 }

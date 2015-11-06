@@ -168,8 +168,8 @@ public class EventoUsuarioBean {
     private String pesquisaChekin;
 
     public String getPesquisaChekin() {
-        if(pesquisaChekin==null){
-            pesquisaChekin="";
+        if (pesquisaChekin == null) {
+            pesquisaChekin = "";
         }
         return pesquisaChekin;
     }
@@ -235,7 +235,7 @@ public class EventoUsuarioBean {
 
             }
         }
-        pesquisaChekin="";
+        pesquisaChekin = "";
         return "";
 
     }
@@ -280,36 +280,36 @@ public class EventoUsuarioBean {
     public void setEvntoItem(EventoItens evntoItem) {
         this.evntoItem = evntoItem;
     }
-    
+
     private List<EventoCheckin> listaCheckin;
 
     public List<EventoCheckin> getListaCheckin() {
         EventoCheckinDAO ecDAo = new EventoCheckinDAO();
-        if(evntoItem!=null){
+        if (evntoItem != null) {
             listaCheckin = ecDAo.listaCheckins(evntoItem);
         } else {
             listaCheckin = new ArrayList<>();
         }
-        
+
         return listaCheckin;
     }
 
     public void setListaCheckin(List<EventoCheckin> listaCheckin) {
         this.listaCheckin = listaCheckin;
     }
-    
+
     private List<Evento> listaEventosParticipante;
 
     public List<Evento> getListaEventosParticipante() {
         Usuario u = new ContextBean().getUser();
-        if(u!=null){
+        if (u != null) {
             listaEventosParticipante = new ArrayList<>();
             EventoInscricaoDAO eiDAO = new EventoInscricaoDAO();
             List<EventoInscricao> listaInscricoes = eiDAO.checkExists("usuario", u);
             for (EventoInscricao listaInscricoe : listaInscricoes) {
                 listaEventosParticipante.add(listaInscricoe.getEvento());
             }
-            
+
         } else {
             listaEventosParticipante = new ArrayList<>();
         }
@@ -319,11 +319,11 @@ public class EventoUsuarioBean {
     public void setListaEventosParticipante(List<Evento> listaEventosParticipante) {
         this.listaEventosParticipante = listaEventosParticipante;
     }
-    
+
     private StreamedContent arqRelFrequencia;
 
     public StreamedContent getArqRelFrequencia() {
-        if (evntoItem!=null) {
+        if (evntoItem != null) {
             FacesContext context = FacesContext.getCurrentInstance();
             RelatorioUtil relatorioUtil = new RelatorioUtil();
             HashMap parametrosRelatorio = new HashMap<>();
@@ -349,11 +349,11 @@ public class EventoUsuarioBean {
     public void setArqRelFrequencia(StreamedContent arqRelFrequencia) {
         this.arqRelFrequencia = arqRelFrequencia;
     }
-    
+
     private StreamedContent arqRelInscritos;
 
     public StreamedContent getArqRelInscritos() {
-        if (evntoItem!=null) {
+        if (evntoItem != null) {
             FacesContext context = FacesContext.getCurrentInstance();
             RelatorioUtil relatorioUtil = new RelatorioUtil();
             HashMap parametrosRelatorio = new HashMap<>();
@@ -375,19 +375,18 @@ public class EventoUsuarioBean {
         }
         return null;
     }
-    
 
     private List<EventoUsuario> listausuarioMobile;
 
     public List<EventoUsuario> getListausuarioMobile() {
-         EventoUsuarioDAO euDAO = new EventoUsuarioDAO();
+        EventoUsuarioDAO euDAO = new EventoUsuarioDAO();
         return euDAO.checkExists("evento", evento);
     }
 
     public void setListausuarioMobile(List<EventoUsuario> listausuarioMobile) {
         this.listausuarioMobile = listausuarioMobile;
     }
-    
+
     private EventoUsuario eventoUsuarioMobile;
 
     public EventoUsuario getEventoUsuarioMobile() {
@@ -398,17 +397,25 @@ public class EventoUsuarioBean {
         this.eventoUsuarioMobile = eventoUsuarioMobile;
     }
 
-    public String removerUsuarioMobile(){
+    public String removerUsuarioMobile() {
         EventoUsuarioDAO euDAO = new EventoUsuarioDAO();
         euDAO.remove(eventoUsuarioMobile);
         return "";
     }
-    
-    public String novoUsuarioMobile(){
+
+    public String removerItemInscricao() {
+        EventoInscricaoItensDAO eiiDAO = new EventoInscricaoItensDAO();
+        eiiDAO.remove(eventoInscricaoItens);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Item excluido!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return "";
+    }
+
+    public String novoUsuarioMobile() {
         eventoUsuarioMobile = new EventoUsuario();
         return "/private/usuariomobileedicao.jsf";
     }
-    
+
     private String confirmarSenhaUsuarioMobile;
 
     public String getConfirmarSenhaUsuarioMobile() {
@@ -418,21 +425,21 @@ public class EventoUsuarioBean {
     public void setConfirmarSenhaUsuarioMobile(String confirmarSenhaUsuarioMobile) {
         this.confirmarSenhaUsuarioMobile = confirmarSenhaUsuarioMobile;
     }
-    
-    public String salvarUsuarioMobile(){
-        if(eventoUsuarioMobile.getLogin().equals("")){
+
+    public String salvarUsuarioMobile() {
+        if (eventoUsuarioMobile.getLogin().equals("")) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Informe o Login!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
-        } else if(eventoUsuarioMobile.getNome().equals("")){
+        } else if (eventoUsuarioMobile.getNome().equals("")) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Informe o Nome!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
-        } else if(eventoUsuarioMobile.getSenha().equals("") || confirmarSenhaUsuarioMobile.equals("")){
+        } else if (eventoUsuarioMobile.getSenha().equals("") || confirmarSenhaUsuarioMobile.equals("")) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Informe a Senha!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
-        } else if(!eventoUsuarioMobile.getSenha().equals(confirmarSenhaUsuarioMobile)){
+        } else if (!eventoUsuarioMobile.getSenha().equals(confirmarSenhaUsuarioMobile)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Senha digitada incorretamente!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
@@ -440,28 +447,63 @@ public class EventoUsuarioBean {
             EventoUsuarioDAO euDAO = new EventoUsuarioDAO();
             eventoUsuarioMobile.setEvento(evento);
             eventoUsuarioMobile.setNome(eventoUsuarioMobile.getNome().toUpperCase());
-            if(evento.getId()==0){
+            if (evento.getId() == 0) {
                 euDAO.add(eventoUsuarioMobile);
             } else {
                 euDAO.update(eventoUsuarioMobile);
             }
-            
+
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cadastro de Usuário Mobile Realizado com Sucesso!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        
+
         return "/private/usuariosmobile.jsf";
     }
-    
-    public String proximaTelaCheckin(){
-        if(evntoItem==null){
+
+    public String proximaTelaCheckin() {
+        if (evntoItem == null) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Informe o Item!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
         }
         return "/private/checkin.jsf";
     }
-       
     
+    private String pesquisaIscricaoEtiquetas;
+
+    public String getPesquisaIscricaoEtiquetas() {
+        return pesquisaIscricaoEtiquetas;
+    }
+
+    public void setPesquisaIscricaoEtiquetas(String pesquisaIscricaoEtiquetas) {
+        this.pesquisaIscricaoEtiquetas = pesquisaIscricaoEtiquetas;
+    }
+    
+    private StreamedContent arqRelImprimirEtiquetas;
+
+    public StreamedContent getArqRelImprimirEtiquetas() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        RelatorioUtil relatorioUtil = new RelatorioUtil();
+        HashMap parametrosRelatorio = new HashMap<>();
+        if(pesquisaIscricaoEtiquetas.equals("")){
+            parametrosRelatorio.put("sql", evento.getId());
+        } else {
+            parametrosRelatorio.put("sql", evento.getId()+" and ei.id="+pesquisaIscricaoEtiquetas);
+        }
         
+        try {
+            this.arqRelImprimirEtiquetas = relatorioUtil.geraRelatorio(
+                    parametrosRelatorio, "adesivos_cracha",
+                    "adesivos_cracha", 1);
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(e.getMessage()));
+        }
+
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Etiquetas Gerada!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return arqRelImprimirEtiquetas;
+    }
+    
+    
+
 }

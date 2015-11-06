@@ -46,6 +46,10 @@
                                         Lista de Eventos
                                     </f:facet>
 
+                                    <p:column headerText="Cód. Evento" >
+                                        <h:outputText value="#{event.id}" />
+                                    </p:column>
+                                    
                                     <p:column headerText="Evento" >
                                         <h:outputText value="#{event.descricao}" />
                                     </p:column>
